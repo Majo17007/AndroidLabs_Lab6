@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             while (true) {
                 try {
-                    // Step 1: Get JSON
                     URL url = new URL("https://cataas.com/cat?json=true");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     InputStream inputStream = conn.getInputStream();
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
                     File file = new File(getFilesDir(), catId + ".jpg");
                     if (!file.exists()) {
-                        // Download image
                         InputStream in = new URL(catUrl).openStream();
                         FileOutputStream out = new FileOutputStream(file);
 
@@ -74,13 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
                     currentCatImage = BitmapFactory.decodeFile(file.getAbsolutePath());
 
-                    // Reset progress and display new image
                     publishProgress(0);
 
-                    // Progress countdown
                     for (int i = 0; i <= 100; i++) {
                         publishProgress(i);
-                        Thread.sleep(30); // Adjust speed as you like
+                        Thread.sleep(30);
                     }
 
                 } catch (Exception e) {
